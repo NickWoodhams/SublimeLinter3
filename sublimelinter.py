@@ -398,12 +398,19 @@ class SublimeLinter(sublime_plugin.EventListener):
                         status = 'Error: '
 
                     status += '; '.join(line_errors)
+                    # new stuff
+                    view.show_popup('<style>html { background-color: #002b36; margin: 0px; color: #839496; } body { background-color: #002b36; margin: 5px; border: none; font-size: 11px; color: #839496; } div { margin: 0px; word-wrap:break-word; } a { color: #2aa198; } .error_line { color: #839496; margin: 4px 5px 8px; }</style> <div><p class="error_line">☞ ' + '</p><p class="error_line"> 🐴 '.join(line_errors) + '</p></div>',
+                                    location=-1,
+                                    max_width=400)
+                    # end new stuff
                 else:
                     status = '%i error%s' % (count, plural)
-
                 view.set_status('sublimelinter', status)
             else:
                 view.erase_status('sublimelinter')
+                # new stuff
+                view.hide_popup()
+                # end new stuff
 
     def on_pre_save(self, view):
         """
